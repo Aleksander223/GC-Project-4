@@ -65,34 +65,48 @@ function addPoint() {
     shapeInput1 = shapeInput1.split(",")
     let x = parseFloat(shapeInput1[0])
     let y = parseFloat(shapeInput1[1])
-
+    console.log(x)
     let screenX = X_MIDDLE + x
     let screenY = Y_MIDDLE - y
 
+    let xFactor = 1, yFactor = 1
+
     if (screenX > C_WIDTH || screenY > C_HEIGHT) {
-        xFactor = C_WIDTH/screenX
-        yFactor = C_HEIGHT/screenY
 
-        factor = Math.min(xFactor, yFactor)
+        if(selectShape1 == true){
+            xFactor = C_WIDTH/screenX
+            yFactor = C_HEIGHT/screenY
+            console.log("scale")
+            console.log(xFactor)
 
-        let newArray = []
+            let newArray = []
 
-        for (let i = 0; i < p1_points.length; i++) {
-            const point = {
-                x: p1_points[i].x * factor,
-                y: p1_points[i].y *= factor,
-                realX: p1_points[i].realX,
-                realY: p1_points[i].realY
+            screenX = screenX* xFactor
+            screenY = screenY * yFactor
+
+            console.log("coordX")
+            console.log(screenX)
+            for (let i = 0; i < p1_points.length; i++) {
+                const point = {
+                    x: X_MIDDLE+ p1_points[i].realX * xFactor,
+                    y: Y_MIDDLE - p1_points[i].realY * yFactor,
+                    realX: p1_points[i].realX,
+                    realY: p1_points[i].realY
+                }
+
+                newArray = newArray.concat(point)
             }
 
-            newArray = newArray.concat(point)
-        }
 
-        p1_points = newArray
+
+            p1_points = newArray
+        } else if(selectShape2 == true){
+            ///same
+        }
     }
 
-    screenX *= factor
-    screenY *= factor
+    console.log("CoordX")
+    console.log(screenX)
 
     if (selectShape1 == true)
         p1_points = p1_points.concat({
