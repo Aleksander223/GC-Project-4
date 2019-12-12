@@ -66,6 +66,7 @@ function addPoint() {
     let x = parseFloat(shapeInput1[0])
     let y = parseFloat(shapeInput1[1])
     console.log(x)
+	/// aici trebuie x * xFactor pt ca viitoarele pct introduse trebuie scalate la axele actuale
     let screenX = X_MIDDLE + x
     let screenY = Y_MIDDLE - y
 
@@ -74,15 +75,16 @@ function addPoint() {
     if (screenX > C_WIDTH || screenY > C_HEIGHT) {
 
         if(selectShape1 == true){
-            xFactor = C_WIDTH/screenX
-            yFactor = C_HEIGHT/screenY
+			xFactor = abs(X_MIDDLE/x)
+			yFactor = abs(Y_MIDDLE/y)
+			
             console.log("scale")
             console.log(xFactor)
 
             let newArray = []
 
-            screenX = screenX* xFactor
-            screenY = screenY * yFactor
+            screenX = X_MIDDLE + x* xFactor
+            screenY = Y_MIDDLE - y* yFactor
 
             console.log("coordX")
             console.log(screenX)
