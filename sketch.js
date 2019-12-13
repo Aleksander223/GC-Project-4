@@ -16,6 +16,10 @@ let selectShape2 = false
 let shapeInput1
 let shapeInput2
 
+/// inainte de orice scalare astea-s 1
+var Factor = 1
+
+/// trebuie scalate si astea la scala curenta, cele reale
 function mouseClicked(e) {
     if (e.pageX < 0 || e.pageX > C_WIDTH || e.pageY < 0 || e.pageY > C_HEIGHT) {
         return
@@ -24,10 +28,12 @@ function mouseClicked(e) {
     const point = {
         x: e.pageX,
         y: e.pageY,
-        realX: e.pageX - X_MIDDLE,
-        realY: Y_MIDDLE - e.pageY
+        realX: (e.pageX - X_MIDDLE)/Factor,
+        realY: (Y_MIDDLE - e.pageY)/Factor
     }
 
+    console.log("CoordX")
+    console.log(point.realX)
 
     if (selectShape1)
         p1_points = p1_points.concat(point)
@@ -61,37 +67,32 @@ function coordinateInput1() {
     shapeInput1 = this.value()
 }
 
+
 function addPoint() {
     shapeInput1 = shapeInput1.split(",")
     let x = parseFloat(shapeInput1[0])
     let y = parseFloat(shapeInput1[1])
     console.log(x)
 	/// aici trebuie x * xFactor pt ca viitoarele pct introduse trebuie scalate la axele actuale
-    let screenX = X_MIDDLE + x
-    let screenY = Y_MIDDLE - y
+    let screenX = X_MIDDLE + x*Factor
+    let screenY = Y_MIDDLE - y*Factor
 
-    let xFactor = 1, yFactor = 1
-
-    if (screenX > C_WIDTH || screenY > C_HEIGHT) {
-
+    if (screenX > C_WIDTH || screenY > C_HEIGHT || screenX < 0 || screenY < 0) {
+        let xFactor, yFactor
         if(selectShape1 == true){
 			xFactor = abs(X_MIDDLE/x)
 			yFactor = abs(Y_MIDDLE/y)
-			
-            console.log("scale")
-            console.log(xFactor)
+            Factor = min(xFactor, yFactor)
 
             let newArray = []
 
-            screenX = X_MIDDLE + x* xFactor
-            screenY = Y_MIDDLE - y* yFactor
+            screenX = X_MIDDLE + x * Factor
+            screenY = Y_MIDDLE - y * Factor
 
-            console.log("coordX")
-            console.log(screenX)
             for (let i = 0; i < p1_points.length; i++) {
                 const point = {
-                    x: X_MIDDLE+ p1_points[i].realX * xFactor,
-                    y: Y_MIDDLE - p1_points[i].realY * yFactor,
+                    x: X_MIDDLE+ p1_points[i].realX * Factor,
+                    y: Y_MIDDLE - p1_points[i].realY * Factor,
                     realX: p1_points[i].realX,
                     realY: p1_points[i].realY
                 }
@@ -106,9 +107,6 @@ function addPoint() {
             ///same
         }
     }
-
-    console.log("CoordX")
-    console.log(screenX)
 
     if (selectShape1 == true)
         p1_points = p1_points.concat({
