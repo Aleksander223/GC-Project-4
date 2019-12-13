@@ -127,7 +127,9 @@ function addPoint() {
 }
 
 function drawPoint(X, Y) {
-
+    stroke('red')
+    strokeWeight(6)
+    point(X, Y)
 }
 
 function keyPressed() {
@@ -182,9 +184,9 @@ function setup() {
      line(X_MIDDLE, 0, X_MIDDLE, C_HEIGHT)
 
      for (let i = 0; i < p1_points.length; i++) {
+         drawPoint(p1_points[i].x, p1_points[i].y)
          stroke('purple')
-         strokeWeight(5)
-         point(p1_points[i].x, p1_points[i].y)
+         strokeWeight(3)
          if (i > 0) {
              line(p1_points[i-1].x, p1_points[i-1].y, p1_points[i].x, p1_points[i].y)
          }
@@ -194,9 +196,9 @@ function setup() {
      }
 
      for (let i = 0; i < p2_points.length; i++) {
+         drawPoint(p2_points[i].x, p2_points[i].y)
          stroke('green')
-         strokeWeight(5)
-         point(p2_points[i].x, p2_points[i].y)
+         strokeWeight(3)
          if (i > 0) {
              line(p2_points[i-1].x, p2_points[i-1].y, p2_points[i].x, p2_points[i].y)
          }
