@@ -152,11 +152,11 @@ function setup() {
     button.mousePressed(startShape2)
 
     button = createButton("Clear shape 1")
-    button.position(3 * WIDTH / 4 + 150, 50)
+    button.position(3 * WIDTH / 4 + 170, 50)
     button.mousePressed(clearShape1)
 
     button = createButton("Clear shape 2")
-    button.position(3 * WIDTH / 4 + 150, 100)
+    button.position(3 * WIDTH / 4 + 170, 100)
     button.mousePressed(clearShape2)
 
     inp = createInput('')
