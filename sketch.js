@@ -32,8 +32,8 @@ function mouseClicked(e) {
         realY: (Y_MIDDLE - e.pageY)/Factor
     }
 
-    console.log("CoordX")
-    console.log(point.realX)
+    // console.log("CoordX")
+    // console.log(point.realX)
 
     if (selectShape1)
         p1_points = p1_points.concat(point)
@@ -50,17 +50,37 @@ function startShape2() {
     selectShape1 = false
     selectShape2 = true
 }
+//nu am reusit sa fac acele butoane sa se deselecteze, asa ca la sterg pur si simplu si le creez inapoi..merge
+function cleanup()
+{
+    radio1.remove()
+    radio1 = createRadio()
+    radio1.option('Shape 1','1')
+    radio1.style("width", "100px")
+    radio1.attribute("name",'single-choice')    
+    radio1.changed(startShape1)
+    radio1.position(3 * WIDTH / 4 + 50, 50)
+    radio2.remove()
+    radio2 = createRadio()
+    radio2.option('Shape 2','2')
+    radio2.style("width", "100px")
+    radio2.attribute("name",'single-choice')    
+    radio2.changed(startShape2)
+    radio2.position(3 * WIDTH / 4 + 50, 100)
+}
 
 function clearShape1() {
     p1_points = []
     selectShape1 = false
     selectShape2 = false
+    cleanup()
 }
 
 function clearShape2() {
     p2_points = []
     selectShape1 = false
     selectShape2 = false
+    cleanup()
 }
 
 function coordinateInput1() {
@@ -143,20 +163,35 @@ function setup() {
 
     createCanvas(C_WIDTH, C_HEIGHT)
 
-    let button = createButton("Shape 1")
-    button.position(3 * WIDTH / 4 + 50, 50)
-    button.mousePressed(startShape1)
+    radio1 = createRadio()
+    radio1.option('Shape 1','1')
+    radio1.style("width", "100px")
+    radio1.attribute("name",'single-choice')    
+    radio1.changed(startShape1)
+    radio1.position(3 * WIDTH / 4 + 50, 50)
 
-    button = createButton("Shape 2")
-    button.position(3 * WIDTH / 4 + 50, 100)
-    button.mousePressed(startShape2)
+    radio2 = createRadio()
+    radio2.option('Shape 2','2') 
+    radio2.style("width", "100px")
+    radio2.attribute("name",'single-choice') 
+    radio2.changed(startShape2)
+    radio2.position(3 * WIDTH / 4 + 50, 100)
+
+    //aceste elemente de mai jos le-am lasat; poate ne vor mai trebui sau imi scapa mie ceva
+    // let button = createButton("Shape 1")
+    // button.position(3 * WIDTH / 4 + 50, 50)
+    // button.mousePressed(startShape1)
+
+    // button = createButton("Shape 2")
+    // button.position(3 * WIDTH / 4 + 50, 100)
+    // button.mousePressed(startShape2)
 
     button = createButton("Clear shape 1")
-    button.position(3 * WIDTH / 4 + 170, 50)
+    button.position(3 * WIDTH / 4 + 170, 46)
     button.mousePressed(clearShape1)
 
     button = createButton("Clear shape 2")
-    button.position(3 * WIDTH / 4 + 170, 100)
+    button.position(3 * WIDTH / 4 + 170, 96)
     button.mousePressed(clearShape2)
 
     inp = createInput('')
