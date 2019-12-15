@@ -32,9 +32,6 @@ function mouseClicked(e) {
         realY: (Y_MIDDLE - e.pageY)/Factor
     }
 
-    // console.log("CoordX")
-    // console.log(point.realX)
-
     if (selectShape1)
         p1_points = p1_points.concat(point)
     else if (selectShape2)
@@ -181,15 +178,6 @@ function setup() {
     radio2.attribute("name",'single-choice') 
     radio2.changed(startShape2)
     radio2.position(3 * WIDTH / 4 + 50, 100)
-
-    //aceste elemente de mai jos le-am lasat; poate ne vor mai trebui sau imi scapa mie ceva
-    // let button = createButton("Shape 1")
-    // button.position(3 * WIDTH / 4 + 50, 50)
-    // button.mousePressed(startShape1)
-
-    // button = createButton("Shape 2")
-    // button.position(3 * WIDTH / 4 + 50, 100)
-    // button.mousePressed(startShape2)
 
     button = createButton("Clear shape 1")
     button.position(3 * WIDTH / 4 + 170, 46)
