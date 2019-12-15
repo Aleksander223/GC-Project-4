@@ -104,8 +104,28 @@ function addPoint() {
             }
 
             p1_points = newArray
-        } else if(selectShape2 == true){
-            ///same
+        } else 
+        if(selectShape2 == true){
+            xFactor = abs(X_MIDDLE/x)
+			yFactor = abs(Y_MIDDLE/y)
+            Factor = min(xFactor, yFactor)
+
+            let newArray = []
+
+            screenX = X_MIDDLE + x * Factor
+            screenY = Y_MIDDLE - y * Factor
+
+            for (let i = 0; i < p2_points.length; i++) {
+                const point = {
+                    x: X_MIDDLE+ p2_points[i].realX * Factor,
+                    y: Y_MIDDLE - p2_points[i].realY * Factor,
+                    realX: p2_points[i].realX,
+                    realY: p2_points[i].realY
+                }
+
+                newArray = newArray.concat(point)
+            }
+            p2_points = newArray
         }
     }
 
