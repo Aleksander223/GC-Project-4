@@ -50,37 +50,20 @@ function startShape2() {
     selectShape1 = false
     selectShape2 = true
 }
-//nu am reusit sa fac acele butoane sa se deselecteze, asa ca la sterg pur si simplu si le creez inapoi..merge
-function cleanup()
-{
-    radio1.remove()
-    radio1 = createRadio()
-    radio1.option('Shape 1','1')
-    radio1.style("width", "100px")
-    radio1.attribute("name",'single-choice')    
-    radio1.changed(startShape1)
-    radio1.position(3 * WIDTH / 4 + 50, 50)
-    radio2.remove()
-    radio2 = createRadio()
-    radio2.option('Shape 2','2')
-    radio2.style("width", "100px")
-    radio2.attribute("name",'single-choice')    
-    radio2.changed(startShape2)
-    radio2.position(3 * WIDTH / 4 + 50, 100)
-}
+
 
 function clearShape1() {
     p1_points = []
     selectShape1 = false
     selectShape2 = false
-    cleanup()
+    document.querySelector('input[name="single-choice"]:checked').checked = false;
 }
 
 function clearShape2() {
     p2_points = []
     selectShape1 = false
     selectShape2 = false
-    cleanup()
+    document.querySelector('input[name="single-choice"]:checked').checked = false;
 }
 
 function coordinateInput1() {
@@ -119,8 +102,6 @@ function addPoint() {
 
                 newArray = newArray.concat(point)
             }
-
-
 
             p1_points = newArray
         } else if(selectShape2 == true){
