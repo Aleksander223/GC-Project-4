@@ -159,6 +159,10 @@ function keyPressed() {
     }
 }
 
+function calculate_covering(){
+    /// algoritmul meu nu e bun (Cosmin)
+}
+
 function setup() {
 
 
@@ -202,7 +206,14 @@ function setup() {
 
     button = createButton("Add")
     button.position(3 * WIDTH / 4 + 170, 150)
+    button.style("height", "30px")
     button.mousePressed(addPoint)
+
+    button = createButton("Calculate")
+    button.style("width", "250px")
+    button.style("height", "25px")
+    button.position(3 * WIDTH / 4 + 50, 200)
+    button.mousePressed(calculate_covering)
 }
 
  function draw() {
