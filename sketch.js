@@ -156,7 +156,6 @@ function keyPressed() {
     }
 }
 
-
 var p_set = []
 var up_cover = []
 var down_cover = []
@@ -171,7 +170,6 @@ function determinant(A, B, C){
     return det
 
 }
-
 
 function upper_border(){ /// viraje la drp <=> dete < 0, sper
 
@@ -190,10 +188,8 @@ function upper_border(){ /// viraje la drp <=> dete < 0, sper
             }
         }
     }   
-    console.log(up)
     return up
 }
-
 
 function down_border(){  /// viraje la stg <=> det > 0
 
@@ -230,8 +226,6 @@ function calculate_covering(){
 
     ok = 1;
 } 
-
-
 
 function setup() {
 
@@ -276,7 +270,7 @@ function setup() {
     button.mousePressed(calculate_covering)
 }
 
- function draw() {
+function draw() {
      clear()
 
      background(0, 0, 0)
@@ -333,7 +327,5 @@ function setup() {
                 line(down_cover[i-1].x, down_cover[i-1].y, down_cover[i].x, down_cover[i].y)
             }
         }
-
      }
- 
  }
