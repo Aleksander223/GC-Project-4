@@ -31,7 +31,7 @@ function mouseClicked(e) {
         realX: (e.pageX - X_MIDDLE)/Factor,
         realY: (Y_MIDDLE - e.pageY)/Factor
     }
-
+    /// console.log("Da ", point)
     if (selectShape1)
         p1_points = p1_points.concat(point)
     else if (selectShape2)
@@ -157,8 +157,10 @@ function keyPressed() {
 }
 
 
-var p_set
-   
+var p_set = []
+var up_cover = []
+var down_cover = []
+
 function determinant(A, B, C){
 
     let det 
@@ -171,63 +173,67 @@ function determinant(A, B, C){
 }
 
 
-function upper_border(){ /// viraje la drp <=> dete > 0, sper
+function upper_border(){ /// viraje la drp <=> dete < 0, sper
 
-    let up = p_set
+    let up = p_set.slice()
 
     for(let i  = 2; i< up.length; i++){
         let det = determinant(up[i-2], up[i-1], up[i])
-        if(det <= 0){
+        if(det >= 0){
             /// elimina elem de pe i - 1
             up.splice(i-1, 1)
             i--
             /// incep sa verific si combinatiile de 3 anterioare 
-            while(i > 1 && determinant(up[i-2], up[i-1], up[i]) <= 0){
+            while(i > 1 && determinant(up[i-2], up[i-1], up[i]) >= 0){
                 up.splice(i-1, 1)
                 i--	
             }
-
         }
     }   
-
+    console.log(up)
     return up
 }
 
 
-function down_border(){  /// viraje la stg <=> dete < 0
+function down_border(){  /// viraje la stg <=> det > 0
 
+    let down = p_set.slice()
 
+    for(let i  = 2; i< down.length; i++){
+        let det = determinant(down[i-2], down[i-1], down[i])
+        if(det <= 0){
+            /// elimina elem de pe i - 1
+            down.splice(i-1, 1)
+            i--
+            /// incep sa verific si combinatiile de 3 anterioare 
+            while(i > 1 && determinant(down[i-2], down[i-1], down[i]) <= 0){
+                down.splice(i-1, 1)
+                i--	
+            }
+        }
+    }
+    
+    return down
 }
 
+var ok = 0;
 
 function calculate_covering(){
     
     p_set = p1_points
     p_set = p_set.concat(p2_points)
 
-	p_set.sort((A, B) => (A.x > B.x) ? 1 : -1)
+    p_set.sort((A, B) => (A.x > B.x) ? 1 : -1)
 	
-	let up = []
-	let down = []
-	
-    up = upper_border()
+    up_cover = upper_border()
+    down_cover = down_border()
 
-    for (let i = 0; i < up.length; i++) {
-        stroke('white')
-        strokeWeight(3)
-        if (i > 0) {
-            line(up[i-1].x, up[i-1].y, up[i].x, up[i].y)
-        }
-        if (i == up.length - 1 && up.length > 2) {
-            line(up[i].x, up[i].y, up[0].x, up[0].y)
-        }
-    }
+    ok = 1;
 } 
 
 
 
 function setup() {
-
 
     createCanvas(C_WIDTH, C_HEIGHT)
 
@@ -308,4 +314,26 @@ function setup() {
          }
      }
 
+
+     if(ok){
+        stroke('white')
+        strokeWeight(4)
+
+        for (let i = 0; i < up_cover.length; i++) {
+            if (i > 0) {
+                line(up_cover[i-1].x, up_cover[i-1].y, up_cover[i].x, up_cover[i].y)
+            }
+        }
+
+        stroke('yellow')
+        strokeWeight(4)
+
+        for (let i = 0; i < down_cover.length; i++) {
+            if (i > 0) {
+                line(down_cover[i-1].x, down_cover[i-1].y, down_cover[i].x, down_cover[i].y)
+            }
+        }
+
+     }
+ 
  }
