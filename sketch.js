@@ -159,9 +159,75 @@ function keyPressed() {
     }
 }
 
-function calculate_covering(){
-    /// algoritmul meu nu e bun (Cosmin)
+
+var p_set
+   
+function determinant(A, B, C){
+
+    let det 
+    /// | Ax Ay 1 |
+    /// | Bx By 1 |
+    /// | Cx Cy 1 |
+    det = A.realX*B.realY + B.realX*C.realY + A.realY*C.realX - C.realX*B.realY -B.realX*A.realY - A.realX*C.realY
+    return det
+
 }
+
+
+function upper_border(){ /// viraje la drp <=> dete > 0, sper
+
+    let up = p_set
+
+    for(let i  = 2; i< up.length; i++){
+        let det = determinant(up[i-2], up[i-1], up[i])
+        if(det <= 0){
+            /// elimina elem de pe i - 1
+            up.splice(i-1, 1)
+            i--
+            /// incep sa verific si combinatiile de 3 anterioare 
+            while(i > 1 && determinant(up[i-2], up[i-1], up[i]) <= 0){
+                up.splice(i-1, 1)
+                i--	
+            }
+
+        }
+    }   
+
+    return up
+}
+
+
+function down_border(){  /// viraje la stg <=> dete < 0
+
+
+}
+
+
+function calculate_covering(){
+    
+    p_set = p1_points
+    p_set = p_set.concat(p2_points)
+
+	p_set.sort((A, B) => (A.x > B.x) ? 1 : -1)
+	
+	let up = []
+	let down = []
+	
+    up = upper_border()
+
+    for (let i = 0; i < up.length; i++) {
+        stroke('white')
+        strokeWeight(3)
+        if (i > 0) {
+            line(up[i-1].x, up[i-1].y, up[i].x, up[i].y)
+        }
+        if (i == up.length - 1 && up.length > 2) {
+            line(up[i].x, up[i].y, up[0].x, up[0].y)
+        }
+    }
+} 
+
+
 
 function setup() {
 
