@@ -171,19 +171,12 @@ function determinant(A, B, C){
 function upper_border(){ /// viraje la drp <=> dete < 0, sper
 
     let up = p_set.slice()
-
-    for(let i  = 2; i< up.length; i++){
-        let det = determinant(up[i-2], up[i-1], up[i])
-        if(det >= 0){
-            /// elimina elem de pe i - 1
-            up.splice(i-1, 1)
-            i--
-            /// incep sa verific si combinatiile de 3 anterioare 
+    for(let i  = 2; i< up.length; i++){      
+            /// incep sa verific 3 cate 3 combinatii de curbe
             while(i > 1 && determinant(up[i-2], up[i-1], up[i]) >= 0){
                 up.splice(i-1, 1)
                 i--	
             }
-        }
     }   
     return up
 }
@@ -191,21 +184,13 @@ function upper_border(){ /// viraje la drp <=> dete < 0, sper
 function down_border(){  /// viraje la stg <=> det > 0
 
     let down = p_set.slice()
-
     for(let i  = 2; i< down.length; i++){
-        let det = determinant(down[i-2], down[i-1], down[i])
-        if(det <= 0){
-            /// elimina elem de pe i - 1
-            down.splice(i-1, 1)
-            i--
-            /// incep sa verific si combinatiile de 3 anterioare 
+            /// incep sa verific 3 cate 3 combinatii de curbe
             while(i > 1 && determinant(down[i-2], down[i-1], down[i]) <= 0){
                 down.splice(i-1, 1)
                 i--	
             }
-        }
     }
-    
     return down
 }
 
