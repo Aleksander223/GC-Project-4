@@ -165,14 +165,13 @@ function determinant(A, B, C){
     /// | Cx Cy 1 |
     det = A.realX*B.realY + B.realX*C.realY + A.realY*C.realX - C.realX*B.realY -B.realX*A.realY - A.realX*C.realY
     return det
-
 }
 
-function upper_border(){ /// viraje la drp <=> dete < 0, sper
+function upper_border(){
 
     let up = p_set.slice()
     for(let i  = 2; i< up.length; i++){      
-            /// incep sa verific 3 cate 3 combinatii de curbe
+            /// incep sa verific 3 cate 3 combinatii de curbe (trebuie sa fie la drp)
             while(i > 1 && determinant(up[i-2], up[i-1], up[i]) >= 0){
                 up.splice(i-1, 1)
                 i--	
@@ -181,11 +180,11 @@ function upper_border(){ /// viraje la drp <=> dete < 0, sper
     return up
 }
 
-function down_border(){  /// viraje la stg <=> det > 0
+function down_border(){ 
 
     let down = p_set.slice()
     for(let i  = 2; i< down.length; i++){
-            /// incep sa verific 3 cate 3 combinatii de curbe
+            /// incep sa verific 3 cate 3 combinatii de curbe (trebuie sa fie la stg)
             while(i > 1 && determinant(down[i-2], down[i-1], down[i]) <= 0){
                 down.splice(i-1, 1)
                 i--	
@@ -290,7 +289,6 @@ function draw() {
          }
      }
 
-
      if(ok){
         stroke('white')
         strokeWeight(4)
@@ -310,4 +308,4 @@ function draw() {
             }
         }
      }
- }
+}
