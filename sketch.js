@@ -31,7 +31,6 @@ function mouseClicked(e) {
         realX: (e.pageX - X_MIDDLE)/Factor,
         realY: (Y_MIDDLE - e.pageY)/Factor
     }
-    /// console.log("Da ", point)
     if (selectShape1)
         p1_points = p1_points.concat(point)
     else if (selectShape2)
@@ -47,7 +46,6 @@ function startShape2() {
     selectShape1 = false
     selectShape2 = true
 }
-
 
 function clearShape1() {
     p1_points = []
@@ -66,7 +64,6 @@ function clearShape2() {
 function coordinateInput1() {
     shapeInput1 = this.value()
 }
-
 
 function addPoint() {
     shapeInput1 = shapeInput1.split(",")
