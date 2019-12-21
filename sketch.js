@@ -76,51 +76,41 @@ function addPoint() {
 
     if (screenX > C_WIDTH || screenY > C_HEIGHT || screenX < 0 || screenY < 0) {
         let xFactor, yFactor
-        if(selectShape1 == true){
-			xFactor = abs(X_MIDDLE/x)
-			yFactor = abs(Y_MIDDLE/y)
-            Factor = min(xFactor, yFactor)
 
-            let newArray = []
+        xFactor = abs(X_MIDDLE/x)
+        yFactor = abs(Y_MIDDLE/y)
+        Factor = min(xFactor, yFactor)
 
-            screenX = X_MIDDLE + x * Factor
-            screenY = Y_MIDDLE - y * Factor
+        screenX = X_MIDDLE + x * Factor
+        screenY = Y_MIDDLE - y * Factor
+        
+        let newArray = []
 
-            for (let i = 0; i < p1_points.length; i++) {
-                const point = {
-                    x: X_MIDDLE+ p1_points[i].realX * Factor,
-                    y: Y_MIDDLE - p1_points[i].realY * Factor,
-                    realX: p1_points[i].realX,
-                    realY: p1_points[i].realY
-                }
-
-                newArray = newArray.concat(point)
+        for (let i = 0; i < p1_points.length; i++) {
+            const point = {
+                x: X_MIDDLE+ p1_points[i].realX * Factor,
+                y: Y_MIDDLE - p1_points[i].realY * Factor,
+                realX: p1_points[i].realX,
+                realY: p1_points[i].realY
             }
 
-            p1_points = newArray
-        } else
-        if(selectShape2 == true){
-            xFactor = abs(X_MIDDLE/x)
-			yFactor = abs(Y_MIDDLE/y)
-            Factor = min(xFactor, yFactor)
-
-            let newArray = []
-
-            screenX = X_MIDDLE + x * Factor
-            screenY = Y_MIDDLE - y * Factor
-
-            for (let i = 0; i < p2_points.length; i++) {
-                const point = {
-                    x: X_MIDDLE+ p2_points[i].realX * Factor,
-                    y: Y_MIDDLE - p2_points[i].realY * Factor,
-                    realX: p2_points[i].realX,
-                    realY: p2_points[i].realY
-                }
-
-                newArray = newArray.concat(point)
-            }
-            p2_points = newArray
+            newArray = newArray.concat(point)
         }
+        p1_points = newArray
+
+        newArray = []
+
+        for (let i = 0; i < p2_points.length; i++) {
+            const point = {
+                x: X_MIDDLE+ p2_points[i].realX * Factor,
+                y: Y_MIDDLE - p2_points[i].realY * Factor,
+                realX: p2_points[i].realX,
+                realY: p2_points[i].realY
+            }
+
+            newArray = newArray.concat(point)
+        }
+        p2_points = newArray
     }
 
     if (selectShape1 == true)
