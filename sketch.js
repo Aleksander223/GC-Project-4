@@ -52,6 +52,7 @@ function clearShape1() {
     selectShape1 = false
     selectShape2 = false
     document.querySelector('input[name="single-choice"]:checked').checked = false;
+    ok = 0;
 }
 
 function clearShape2() {
@@ -59,6 +60,7 @@ function clearShape2() {
     selectShape1 = false
     selectShape2 = false
     document.querySelector('input[name="single-choice"]:checked').checked = false;
+    ok = 0;
 }
 
 function coordinateInput1() {
