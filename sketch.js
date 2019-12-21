@@ -98,7 +98,7 @@ function addPoint() {
             }
 
             p1_points = newArray
-        } else 
+        } else
         if(selectShape2 == true){
             xFactor = abs(X_MIDDLE/x)
 			yFactor = abs(Y_MIDDLE/y)
@@ -141,10 +141,14 @@ function addPoint() {
     inp.value(null)
 }
 
-function drawPoint(X, Y) {
+function drawPoint(X, Y, realX, realY) {
     stroke('red')
     strokeWeight(6)
     point(X, Y)
+    let coordonate = "(" + realX + ", " + realY + ")"
+    fill(0, 102, 153) //puteti schimba culoarea daca nu va place
+    noStroke()
+    text(coordonate, X, Y)
 }
 
 function keyPressed() {
@@ -159,7 +163,7 @@ var down_cover = []
 
 function determinant(A, B, C){
 
-    let det 
+    let det
     /// | Ax Ay 1 |
     /// | Bx By 1 |
     /// | Cx Cy 1 |
@@ -170,24 +174,24 @@ function determinant(A, B, C){
 function upper_border(){
 
     let up = p_set.slice()
-    for(let i  = 2; i< up.length; i++){      
+    for(let i  = 2; i< up.length; i++){
             /// incep sa verific 3 cate 3 combinatii de curbe (trebuie sa fie la drp)
             while(i > 1 && determinant(up[i-2], up[i-1], up[i]) >= 0){
                 up.splice(i-1, 1)
-                i--	
+                i--
             }
-    }   
+    }
     return up
 }
 
-function down_border(){ 
+function down_border(){
 
     let down = p_set.slice()
     for(let i  = 2; i< down.length; i++){
             /// incep sa verific 3 cate 3 combinatii de curbe (trebuie sa fie la stg)
             while(i > 1 && determinant(down[i-2], down[i-1], down[i]) <= 0){
                 down.splice(i-1, 1)
-                i--	
+                i--
             }
     }
     return down
@@ -196,17 +200,17 @@ function down_border(){
 var ok = 0;
 
 function calculate_covering(){
-    
+
     p_set = p1_points
     p_set = p_set.concat(p2_points)
 
     p_set.sort((A, B) => (A.x > B.x) ? 1 : -1)
-	
+
     up_cover = upper_border()
     down_cover = down_border()
 
     ok = 1;
-} 
+}
 
 function setup() {
 
@@ -215,14 +219,14 @@ function setup() {
     radio1 = createRadio()
     radio1.option('Shape 1','1')
     radio1.style("width", "100px")
-    radio1.attribute("name",'single-choice')    
+    radio1.attribute("name",'single-choice')
     radio1.changed(startShape1)
     radio1.position(3 * WIDTH / 4 + 50, 50)
 
     radio2 = createRadio()
-    radio2.option('Shape 2','2') 
+    radio2.option('Shape 2','2')
     radio2.style("width", "100px")
-    radio2.attribute("name",'single-choice') 
+    radio2.attribute("name",'single-choice')
     radio2.changed(startShape2)
     radio2.position(3 * WIDTH / 4 + 50, 100)
 
@@ -266,7 +270,7 @@ function draw() {
      line(X_MIDDLE, 0, X_MIDDLE, C_HEIGHT)
 
      for (let i = 0; i < p1_points.length; i++) {
-         drawPoint(p1_points[i].x, p1_points[i].y)
+         drawPoint(p1_points[i].x, p1_points[i].y,p1_points[i].realX, p1_points[i].realY)
          stroke('purple')
          strokeWeight(3)
          if (i > 0) {
@@ -278,7 +282,7 @@ function draw() {
      }
 
      for (let i = 0; i < p2_points.length; i++) {
-         drawPoint(p2_points[i].x, p2_points[i].y)
+         drawPoint(p2_points[i].x, p2_points[i].y,p2_points[i].realX, p2_points[i].realY)
          stroke('green')
          strokeWeight(3)
          if (i > 0) {
